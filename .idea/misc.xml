@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/nawaf/AndroidStudioProjects/Project01/app/src/main/res/layout-v31/activity_sqlite.xml" value="0.26992753623188404" />
+        <entry key="..\:/Users/nawaf/AndroidStudioProjects/Project01/app/src/main/res/layout/activity_firebase.xml" value="0.26992753623188404" />
+        <entry key="..\:/Users/nawaf/AndroidStudioProjects/Project01/app/src/main/res/layout/activity_firebase_list.xml" value="0.26992753623188404" />
+        <entry key="..\:/Users/nawaf/AndroidStudioProjects/Project01/app/src/main/res/layout/activity_sqlite.xml" value="0.26992753623188404" />
+        <entry key="..\:/Users/nawaf/AndroidStudioProjects/Project01/app/src/main/res/layout/activity_weather.xml" value="0.26992753623188404" />
         <entry key="..\:/Users/ym248/AndroidStudioProjects/SE328NawafAlzahemProject/app/src/main/res/layout-v31/activity_sqlite.xml" value="0.358695652173913" />
         <entry key="..\:/Users/ym248/AndroidStudioProjects/SE328NawafAlzahemProject/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/ym248/AndroidStudioProjects/SE328NawafAlzahemProject/app/src/main/res/layout/activity_sqli_list.xml" value="0.33" />

@@ -138,7 +138,7 @@
 
         android:width="350px"
         android:backgroundTint="@android:color/system_accent1_800"
-        android:text="SELECT OPTIONS"
+        android:text="Display Records"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.959"

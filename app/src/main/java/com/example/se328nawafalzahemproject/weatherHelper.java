@@ -44,7 +44,7 @@ public class weatherHelper {
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String city = sp.getString("WeatherCity","Athens");
+                    String city = sp.getString("WeatherCity","Riyadh");
                     float temp = sp.getFloat("temp",-1);
                     float humidity = sp.getFloat("humidity",-1);
                     int clouds = sp.getInt("clouds",-1);

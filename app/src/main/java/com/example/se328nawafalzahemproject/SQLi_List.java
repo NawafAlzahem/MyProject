@@ -16,6 +16,9 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+
 import java.util.ArrayList;
 
 public class SQLi_List extends AppCompatActivity {
@@ -23,6 +26,8 @@ public class SQLi_List extends AppCompatActivity {
 
 
     ArrayList<User> myUsers;
+
+    RequestQueue rq;
 
 
     @Override
@@ -35,6 +40,9 @@ public class SQLi_List extends AppCompatActivity {
         EditText inp_uid = findViewById(R.id.EDT_UNIid1);
         Button select = findViewById(R.id.bttn_search);
        ListView listx = findViewById(R.id.sql_list);
+
+        rq= Volley.newRequestQueue(this);
+        rq.add(weatherHelper.weather(this));
 
         myUsers=new ArrayList<>();
 
@@ -132,7 +140,46 @@ public class SQLi_List extends AppCompatActivity {
             }
         });
 
+        displayList();
 
 
+
+    }
+
+    public void displayList(){
+        Cursor c;
+        DBHelper dbHelper=new DBHelper(this);
+        ListView listx = findViewById(R.id.sql_list);
+
+        c = dbHelper.selectby_All();
+
+
+        if (c.getCount() == 0){
+            Toast.makeText(SQLi_List.this,"No match found.",Toast.LENGTH_LONG).show();
+
+            myUsers.clear();
+            ((BaseAdapter)listx.getAdapter()).notifyDataSetChanged();
+
+            return;
+        }
+
+        //    myUsers = new ArrayList<>();
+
+        myUsers.clear();
+
+        do {
+            User myUser = new User();
+            myUser.setUserId( c.getInt(0));
+            myUser.setFirstName( c.getString(1));
+            myUser.setLastName( c.getString(2));
+            myUser.setPhoneNumber( c.getString(3));
+            myUser.setEmailAddress( c.getString(4));
+
+            myUsers.add(myUser);
+        }while (c.moveToNext());
+
+
+
+        ((BaseAdapter)listx.getAdapter()).notifyDataSetChanged();
     }
 }

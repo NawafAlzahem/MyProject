@@ -42,6 +42,8 @@ public class DBHelper extends SQLiteOpenHelper{
     here, must be in accordance with those in
     the onCreate method above.
  */
+
+    // this insertion methods to save data in SQLITE
     public boolean insert(int UNI_ID, String Fname,String Lname,String Phone,String Email) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -61,6 +63,10 @@ public class DBHelper extends SQLiteOpenHelper{
         else
 
         {return true;}
+    }
+    //reads data from user class and send it to insert method above to save it SQLITE
+    public boolean insert(User user){
+        return insert(user.userId,user.firstName,user.lastName,user.phoneNumber,user.emailAddress);
     }
 
     public boolean deleteData(int UNI_ID) {

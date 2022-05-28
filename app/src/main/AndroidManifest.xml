@@ -17,6 +17,12 @@
         android:theme="@style/Theme.SE328NawafAlzahemProject"
         tools:targetApi="31">
         <activity
+            android:name=".FirebaseList"
+            android:exported="false" />
+        <activity
+            android:name=".Firebase"
+            android:exported="false" />
+        <activity
             android:name=".weather"
             android:exported="false" />
         <activity

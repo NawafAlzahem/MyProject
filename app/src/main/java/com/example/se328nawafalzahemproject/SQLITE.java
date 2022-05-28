@@ -1,16 +1,24 @@
 package com.example.se328nawafalzahemproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SQLITE extends AppCompatActivity {
     EditText Firstname;
@@ -18,6 +26,11 @@ public class SQLITE extends AppCompatActivity {
     EditText Phone;
     EditText Email;
     EditText Uni_ID;
+
+    RequestQueue rq;
+
+    FirebaseDatabase database;
+    DatabaseReference ref;
 
 
     Button Insert,Update,Delete,SelectOption,InsertFromFireBase;
@@ -42,6 +55,12 @@ public class SQLITE extends AppCompatActivity {
         Delete=(Button)findViewById(R.id.DeleteButton);
         SelectOption=(Button)findViewById(R.id.SelectOptions);
         InsertFromFireBase=(Button)findViewById(R.id.InsertFromFireBase);
+
+
+        rq= Volley.newRequestQueue(this);
+        rq.add(weatherHelper.weather(this));
+        database = FirebaseDatabase.getInstance();
+        ref = database.getReference("Students");
 
 
 
@@ -144,6 +163,50 @@ public class SQLITE extends AppCompatActivity {
                 startActivity(new Intent(SQLITE.this, SQLi_List.class));
             }
         });
+
+        InsertFromFireBase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String uid = Uni_ID.getText() + "";
+
+                if (uid.isEmpty()) {
+                    Toast.makeText(SQLITE.this, "University ID field required.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        for (DataSnapshot childData : snapshot.getChildren()) {
+
+                            if (childData.child("userId").getValue(Integer.class) == Integer.valueOf(uid)) {
+                                User user = snapshot.child(childData.getKey()).getValue(User.class);
+                                boolean k = dbHelper.insert(user);
+
+                                if (k ) {
+                                    Toast.makeText(SQLITE.this, "Record inserted successfully.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(SQLITE.this, "Error inserting.", Toast.LENGTH_SHORT).show();
+                                }
+                                return;
+                            }
+
+
+                        }
+                        Toast.makeText(SQLITE.this, "No such University ID found.", Toast.LENGTH_SHORT).show();
+                        return;
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
+
 
     }
 }
